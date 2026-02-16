@@ -1,4 +1,19 @@
 -- share clipboard with OS
+if vim.fn.has('wsl') == 1 then
+  vim.g.clipboard = {
+    name = 'WslClipboard',
+    copy = {
+      ['+'] = 'win32yank.exe -i --crlf',
+      ['*'] = 'win32yank.exe -i --crlf',
+    },
+    paste = {
+      ['+'] = 'win32yank.exe -o --lf',
+      ['*'] = 'win32yank.exe -o --lf',
+    },
+    cache_enabled = 0,
+  }
+end
+
 vim.opt.clipboard:append('unnamedplus,unnamed')
 
 -- use 2-spaces indent
@@ -21,3 +36,4 @@ vim.api.nvim_create_user_command(
   end,
   { desc = 'Open init.lua' }
 )
+
