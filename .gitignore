@@ -14,11 +14,16 @@
 !/fish/.config/fish/conf.d/
 !/fish/.config/fish/functions/
 
+!/starship/
+!/starship/.config/
+
 # 特定のファイルのみを追跡対象にする
 !/fish/.config/fish/config.fish
 !/fish/.config/fish/conf.d/*.fish
 !/fish/.config/fish/completions/*.fish
 !/fish/.config/fish/functions/*.fish
+
+!/starship/.config/starship.toml
 
 !/nvim
 !/nvim/**
