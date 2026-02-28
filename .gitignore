@@ -14,6 +14,10 @@
 !/fish/.config/fish/conf.d/
 !/fish/.config/fish/functions/
 
+!/nvim/
+!/nvim/.config/
+!/nvim/.config/nvim/
+
 !/starship/
 !/starship/.config/
 
@@ -23,10 +27,9 @@
 !/fish/.config/fish/completions/*.fish
 !/fish/.config/fish/functions/*.fish
 
-!/starship/.config/starship.toml
+!/nvim/.config/nvim/*.lua
 
-!/nvim
-!/nvim/**
+!/starship/.config/starship.toml
 
 !/README.md
 !/.gitignore
