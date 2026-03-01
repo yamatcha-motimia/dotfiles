@@ -1,24 +1,208 @@
+# =====================================================================
+# Calm Cool Prompt — calm_cool palette
+# 設計方針: 寒色基調・低〜中彩度・エラーのみ赤強調・2行レイアウト
+# 環境: WezTerm + fish (WSL2) + HackGen Console NF
+# =====================================================================
+
 "$schema" = 'https://starship.rs/config-schema.json'
 
+# ─── グローバル ──────────────────────────────────────────────────────
+add_newline     = true          # プロンプト間に空行（視覚的区切り）
+scan_timeout    = 30
+command_timeout = 500
+palette         = 'calm_cool'   # 以下のパレットを有効化
+
+# ─── プロンプトレイアウト ────────────────────────────────────────────
+# 2行構成:
+#   行1: [user@host] [dir] [git] [lang] [duration][status]
+#   行2: >>> (入力行)
+# right_formatは不使用（WSL2+fishでの描画バグ回避）
 format = """
 $username\
+$hostname\
 $directory\
 $git_branch\
+$git_state\
 $git_status\
 $cmd_duration\
+$status\
 $line_break\
 $character"""
 
+right_format = ''
+
+# ─── カラーパレット ──────────────────────────────────────────────────
+# 全色をここで一元管理。直接HEXを各モジュールに書かない。
+# 彩度: 38〜62% に抑制（eye-strain軽減）
+# Hue: 寒色帯(170〜260°)を基調、error_redのみ暖色例外
+[palettes.calm_cool]
+text_normal     = '#C8D0E0'   # H:220 S:22% L:84% — 通常テキスト
+text_dim        = '#9DA5B4'   # H:218 S:13% L:66% — 銀色寄り補助テキスト（cmd_duration等）
+accent_teal     = '#6BBFB5'   # H:174 S:38% L:58% — user@host（bash倣い緑）
+accent_blue     = '#92C0DC'   # H:207 S:52% L:71% — ディレクトリパス（明度アップ）
+accent_lavender = '#C8B87A'   # H:??? S:??% L:??% — gitブランチ（ライラック、明度アップ）
+accent_sage     = '#8BAF8E'   # H:123 S:21% L:61% — 成功・staged
+warn_amber      = '#D4A574'   # H:32  S:52% L:64% — 変更・警告
+error_red       = '#E06C75'   # H:355 S:62% L:66% — エラー専用
+
+# ─── ユーザー名 ──────────────────────────────────────────────────────
+# show_always = true: 現在設定から踏襲（常時表示）
+# ただし補助テキスト色(text_dim)で視覚的重みを下げる
 [username]
 show_always = true
-format = '[$user](bold green) '
+format      = '[$user]($style)[@](fg:accent_sage)'
+style_user  = 'fg:accent_sage'
+style_root  = 'fg:error_red bold'   # root時は赤で警告
 
-[character]
-success_symbol = '[❯❯❯](bold green)'
-error_symbol   = '[❯❯❯](bold red)'
+# ─── ホスト名 ────────────────────────────────────────────────────────
+# SSHセッション時のみ表示（ローカルでは自明なので不要）
+[hostname]
+ssh_only = false
+format   = '[$hostname ]($style)'
+style    = 'fg:accent_sage'
 
-[cmd_duration]
-format = '[󰔟 $duration]($style)'
+# ─── ディレクトリ ────────────────────────────────────────────────────
+# フォルダアイコン廃止: パス文字列自体が意味を持つため不要
+# 読み取り専用マーク 󰌾 は維持（機能的意味がある）
+[directory]
+format            = '[$path]($style)[$read_only]($read_only_style) '
+style             = 'fg:accent_blue'
+truncation_length = 3       # 3階層まで表示
+truncate_to_repo  = true    # Gitリポジトリルートは省略しない
+read_only         = '󰌾'     # "\U000f033e"
+read_only_style   = 'fg:warn_amber'
 
+# ─── Gitブランチ ─────────────────────────────────────────────────────
+# ブランチアイコン維持: テキストとの区別に有効（前注意的処理）
+# 長いブランチ名は省略（視覚的ノイズ防止）
 [git_branch]
-symbol = ' '
+symbol            = '󰘬'     # "\U000f062c"
+format            = '[$symbol $branch(:$remote_branch)]($style) '
+style             = 'fg:accent_lavender'
+truncation_length = 20
+truncation_symbol = '…'
+
+# ─── Git状態（マージ/リベース中） ────────────────────────────────────
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+style  = 'fg:warn_amber bold'
+
+# ─── Git差分ステータス ───────────────────────────────────────────────
+# 記号選定の根拠:
+#   !  : 変更(modified) — 現在設定から踏襲。視認性高い
+#   +  : ステージ済み   — 追加の直感的記号
+#   󰞇  : 削除           — 削除の視覚的表現
+#   ?  : 未追跡         — 不明の標準記号
+#   ⇡⇣ : ahead/behind   — 方向性が直感的
+[git_status]
+format      = '([\[$all_status$ahead_behind\]]($style) )'
+style       = 'fg:error_red bold'
+conflicted  = '≠'
+ahead       = '[⇡$count]'
+behind      = '[⇣$count]'
+diverged    = '[⇕⇡$ahead_count⇣$behind_count]'
+untracked   = '?'
+stashed     = '≡'
+modified    = '!'
+staged      = '+'
+renamed     = '»'
+deleted     = '󰞇'
+
+# format      = '([\[$all_status$ahead_behind\]](fg:accent_teal) )'
+# style       = 'fg:accent_teal'
+# conflicted  = '[≠](fg:error_red bold)'
+# ahead       = '[⇡$count](fg:accent_sage)'
+# behind      = '[⇣$count](fg:warn_amber)'
+# diverged    = '[⇕⇡$ahead_count⇣$behind_count](fg:warn_amber)'
+# untracked   = '[?](fg:text_dim)'
+# stashed     = '[≡](fg:text_dim)'
+# modified    = '[!](fg:warn_amber)'
+# staged      = '[+](fg:accent_sage)'
+# renamed     = '[»](fg:accent_teal)'
+# deleted     = '[󰞇](fg:error_red)'
+
+# ─── コマンド実行時間 ─────────────────────────────────────────────────
+# 砂時計アイコン維持: 実行時間の直感的表現として有効
+# 2秒以上かかった場合のみ表示（ノイズ防止）
+[cmd_duration]
+min_time          = 2000
+format            = '[󱦟 $duration]($style) '  # "\U000f199f"
+style             = 'fg:text_dim'
+show_milliseconds = false
+
+# ─── 終了ステータス ───────────────────────────────────────────────────
+# エラー時のみ表示（成功時は非表示でノイズ削減）
+# エラーコードを赤で表示—エラーのみ強調の設計原則に従う
+[status]
+disabled         = false
+format           = '[status: $status]($style) '
+# symbol           = ''
+# success_symbol   = ''        # 成功時は非表示
+# not_executable_symbol = '\uf00ad'
+# not_found_symbol = '?'
+# sigint_symbol    = ''       # "\uf11c"
+# signal_symbol    = '󱐋'       # "\U000f140b"
+style            = 'fg:error_red bold'
+
+# ─── プロンプト文字 ───────────────────────────────────────────────────
+# >>> は現在設定から踏襲。成功/エラーで色変化により状態を示す
+# vim modeも設定（<<<で視覚的対称性）
+[character]
+success_symbol = '[>>>](fg:accent_sage bold)'
+error_symbol   = '[>>>](fg:error_red bold)'
+vimcmd_symbol  = '[<<<](fg:accent_lavender bold)'
+
+# ─── 言語モジュール ───────────────────────────────────────────────────
+# 推奨案C: 検出時のみ表示 + メジャー.マイナーのみ
+# 理由: pyenv/mise環境でバージョン切り替えを把握できる実用価値がある
+#       パッチバージョンは不要（互換性に影響しない）
+
+# ─── 明示的無効化 ────────────────────────────────────────────────────
+# 使用しないモジュールを無効化することで起動速度を改善
+# 将来設定が変わった場合の意図の明示にもなる
+
+[package]
+disabled = true      # プロジェクトバージョン: 通常不要
+
+[docker_context]
+disabled = true      # Dockerコンテキスト: 特定用途のみ必要
+
+[conda]
+disabled = true      # Conda: pyenv/mise使用を前提
+
+[aws]
+disabled = true      # クラウド情報: 通常不要
+
+[azure]
+disabled = true
+
+[gcloud]
+disabled = true
+
+[terraform]
+disabled = true
+
+[kubernetes]
+disabled = true
+
+[helm]
+disabled = true
+
+[time]
+disabled = true      # 時刻: right_format不使用につき省略（ターミナルタブで確認可）
+
+[battery]
+disabled = true      # デスクトップ/WSL2では不要
+
+[memory_usage]
+disabled = true      # 常時表示は過剰
+
+[container]
+disabled = true
+
+[singularity]
+disabled = true
+
+[jobs]
+disabled = false     # バックグラウンドジョブは有用なので有効維持
+# jobs モジュールはデフォルト設定で使用（数字のみ表示）
