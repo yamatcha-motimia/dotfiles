@@ -36,14 +36,16 @@ right_format = ''
 # 彩度: 38〜62% に抑制（eye-strain軽減）
 # Hue: 寒色帯(170〜260°)を基調、error_redのみ暖色例外
 [palettes.calm_cool]
-text_normal     = '#C8D0E0'   # H:220 S:22% L:84% — 通常テキスト
-text_dim        = '#9DA5B4'   # H:218 S:13% L:66% — 銀色寄り補助テキスト（cmd_duration等）
-accent_teal     = '#6BBFB5'   # H:174 S:38% L:58% — user@host（bash倣い緑）
-accent_blue     = '#92C0DC'   # H:207 S:52% L:71% — ディレクトリパス（明度アップ）
-accent_lavender = '#C8B87A'   # H:??? S:??% L:??% — gitブランチ（ライラック、明度アップ）
-accent_sage     = '#8BAF8E'   # H:123 S:21% L:61% — 成功・staged
-warn_amber      = '#D4A574'   # H:32  S:52% L:64% — 変更・警告
-error_red       = '#E06C75'   # H:355 S:62% L:66% — エラー専用
+text_dim    = '#9DA5B4'   # H:218 S:13% L:66% — 補助テキスト（cmd_duration等）
+accent_blue = '#92C0DC'   # H:207 S:52% L:71% — ディレクトリパス
+accent_gold = '#C8B87A'   # H:44  S:46% L:63% — gitブランチ
+accent_sage = '#8BAF8E'   # H:123 S:21% L:61% — 成功・staged
+warn_amber  = '#D4A574'   # H:32  S:52% L:64% — 変更・警告
+error_red   = '#E06C75'   # H:355 S:62% L:66% — エラー専用
+
+sumire_deep  = '#7045BF'  # H:262 S:48% L:51% — 外縁・深青紫
+sumire_mid   = '#A08ED8'  # H:256 S:45% L:70% — 中間・柔らか紫
+sumire_light = '#7EC4E8'  # H:200 S:68% L:71% — 内縁・明水色
 
 # ─── ユーザー名 ──────────────────────────────────────────────────────
 # show_always = true: 現在設定から踏襲（常時表示）
@@ -78,7 +80,7 @@ read_only_style   = 'fg:warn_amber'
 [git_branch]
 symbol            = '󰘬'     # "\U000f062c"
 format            = '[$symbol $branch(:$remote_branch)]($style) '
-style             = 'fg:accent_lavender'
+style             = 'fg:accent_gold'
 truncation_length = 20
 truncation_symbol = '…'
 
@@ -108,19 +110,6 @@ staged      = '+'
 renamed     = '»'
 deleted     = '󰞇'
 
-# format      = '([\[$all_status$ahead_behind\]](fg:accent_teal) )'
-# style       = 'fg:accent_teal'
-# conflicted  = '[≠](fg:error_red bold)'
-# ahead       = '[⇡$count](fg:accent_sage)'
-# behind      = '[⇣$count](fg:warn_amber)'
-# diverged    = '[⇕⇡$ahead_count⇣$behind_count](fg:warn_amber)'
-# untracked   = '[?](fg:text_dim)'
-# stashed     = '[≡](fg:text_dim)'
-# modified    = '[!](fg:warn_amber)'
-# staged      = '[+](fg:accent_sage)'
-# renamed     = '[»](fg:accent_teal)'
-# deleted     = '[󰞇](fg:error_red)'
-
 # ─── コマンド実行時間 ─────────────────────────────────────────────────
 # 砂時計アイコン維持: 実行時間の直感的表現として有効
 # 2秒以上かかった場合のみ表示（ノイズ防止）
@@ -148,9 +137,10 @@ style            = 'fg:error_red bold'
 # >>> は現在設定から踏襲。成功/エラーで色変化により状態を示す
 # vim modeも設定（<<<で視覚的対称性）
 [character]
-success_symbol = '[>>>](fg:accent_sage bold)'
+success_symbol = '[>](fg:sumire_deep bold)[>](fg:sumire_mid bold)[>](fg:sumire_light bold)'
+# '[>>>](fg:accent_sage bold)'
 error_symbol   = '[>>>](fg:error_red bold)'
-vimcmd_symbol  = '[<<<](fg:accent_lavender bold)'
+vimcmd_symbol  = '[<<<](fg:accent_gold bold)'
 
 # ─── 言語モジュール ───────────────────────────────────────────────────
 # 推奨案C: 検出時のみ表示 + メジャー.マイナーのみ
