@@ -1,0 +1,30 @@
+[init]
+	defaultBranch = main
+
+[include]
+	path = ~/.gitconfig.local
+
+[core]
+	editor = nvim
+
+[alias]
+    # --- Add 系 ---
+    a = add             # git a <file> で個別 add
+    aa = add .          # git aa で全部 add（あなた向け）
+
+    # --- Commit 系 ---
+    c = commit          # git c でエディタ開く
+    cm = commit -m      # git cm "msg"
+    cmm = commit -am    # git cmm "msg"（add + commit 一発）
+
+    # --- Push / Pull ---
+    p = push
+    pl = pull
+
+    # --- Status / Log ---
+    s = status
+    lg = log --graph --oneline --decorate --all
+
+    # --- Branch / Checkout ---
+    br = branch
+    co = checkout

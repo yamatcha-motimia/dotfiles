@@ -3,9 +3,6 @@
 /**
 
 ### not ignore ###
-!/bin/
-!/bin/**
-
 # ディレクトリ構造を辿れるように許可
 !/fish/
 !/fish/.config/
@@ -13,6 +10,8 @@
 !/fish/.config/fish/completions/
 !/fish/.config/fish/conf.d/
 !/fish/.config/fish/functions/
+
+!/git
 
 !/nvim/
 !/nvim/.config/
@@ -26,6 +25,8 @@
 !/fish/.config/fish/conf.d/*.fish
 !/fish/.config/fish/completions/*.fish
 !/fish/.config/fish/functions/*.fish
+
+!/git/.gitconfig
 
 !/nvim/.config/nvim/*.lua
 
