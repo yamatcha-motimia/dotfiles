@@ -52,8 +52,8 @@ sumire_light = '#7EC4E8'  # H:200 S:68% L:71% — 内縁・明水色
 # ただし補助テキスト色(text_dim)で視覚的重みを下げる
 [username]
 show_always = true
-format      = '[$user]($style)[@](fg:accent_sage)'
-style_user  = 'fg:accent_sage'
+format      = '[$user]($style)[@](fg:accent_sage bold)'
+style_user  = 'fg:accent_sage bold'
 style_root  = 'fg:error_red bold'   # root時は赤で警告
 
 # ─── ホスト名 ────────────────────────────────────────────────────────
@@ -61,14 +61,14 @@ style_root  = 'fg:error_red bold'   # root時は赤で警告
 [hostname]
 ssh_only = false
 format   = '[$hostname ]($style)'
-style    = 'fg:accent_sage'
+style    = 'fg:accent_sage bold'
 
 # ─── ディレクトリ ────────────────────────────────────────────────────
 # フォルダアイコン廃止: パス文字列自体が意味を持つため不要
 # 読み取り専用マーク 󰌾 は維持（機能的意味がある）
 [directory]
 format            = '[$path]($style)[$read_only]($read_only_style) '
-style             = 'fg:accent_blue'
+style             = 'fg:accent_blue bold'
 truncation_length = 3       # 3階層まで表示
 truncate_to_repo  = true    # Gitリポジトリルートは省略しない
 read_only         = '󰌾'     # "\U000f033e"
@@ -80,7 +80,7 @@ read_only_style   = 'fg:warn_amber'
 [git_branch]
 symbol            = '󰘬'     # "\U000f062c"
 format            = '[$symbol $branch(:$remote_branch)]($style) '
-style             = 'fg:accent_gold'
+style             = 'fg:accent_gold bold'
 truncation_length = 20
 truncation_symbol = '…'
 
