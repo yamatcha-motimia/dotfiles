@@ -1,8 +1,11 @@
-# Typst CLI
+# General: Common directories for scripts and system-local tools (e.g., win32yank)
+fish_add_path "$HOME/bin"
+fish_add_path "$HOME/.local/bin"
+fish_add_path "/usr/local/bin"
+
+# Typst CLI: Path for binaries installed via Typst's local manager
 fish_add_path "$HOME/.typst/bin"
 
-# AppImage neovim
-fish_add_path --append "/opt/nvim/"
-
-# Basic path configuration (Win32yank, etc.)
-fish_add_path "$HOME/bin" "/usr/local/bin"
+# Neovim: AppImage installation directory
+# Appended to the end of PATH to avoid overriding system-wide binaries
+fish_add_path "/opt/nvim/"
