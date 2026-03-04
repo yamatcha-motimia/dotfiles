@@ -1,8 +1,8 @@
+# 標準コマンドの拡張
 alias ls='ls --color=auto'
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
 alias grep='grep --color=auto'
 
-alias nv='nvim'
+# 安全確認
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
