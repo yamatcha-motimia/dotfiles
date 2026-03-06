@@ -52,23 +52,23 @@ sumire_light = '#7EC4E8'  # H:200 S:68% L:71% — 内縁・明水色
 # ただし補助テキスト色(text_dim)で視覚的重みを下げる
 [username]
 show_always = true
-format      = '[$user]($style)[@](fg:accent_sage bold)'
-style_user  = 'fg:accent_sage bold'
-style_root  = 'fg:error_red bold'   # root時は赤で警告
+format      = '[$user]($style)[@](fg:accent_sage)'
+style_user  = 'fg:accent_sage'
+style_root  = 'fg:error_red'   # root時は赤で警告
 
 # ─── ホスト名 ────────────────────────────────────────────────────────
 # SSHセッション時のみ表示（ローカルでは自明なので不要）
 [hostname]
 ssh_only = false
 format   = '[$hostname ]($style)'
-style    = 'fg:accent_sage bold'
+style    = 'fg:accent_sage'
 
 # ─── ディレクトリ ────────────────────────────────────────────────────
 # フォルダアイコン廃止: パス文字列自体が意味を持つため不要
 # 読み取り専用マーク 󰌾 は維持（機能的意味がある）
 [directory]
 format            = '[$path]($style)[$read_only]($read_only_style) '
-style             = 'fg:accent_blue bold'
+style             = 'fg:accent_blue'
 truncation_length = 3       # 3階層まで表示
 truncate_to_repo  = true    # Gitリポジトリルートは省略しない
 read_only         = '󰌾'     # "\U000f033e"
@@ -80,7 +80,7 @@ read_only_style   = 'fg:warn_amber'
 [git_branch]
 symbol            = '󰘬'     # "\U000f062c"
 format            = '[$symbol $branch(:$remote_branch)]($style) '
-style             = 'fg:accent_gold bold'
+style             = 'fg:accent_gold'
 truncation_length = 20
 truncation_symbol = '…'
 
@@ -131,16 +131,16 @@ format           = '[status: $status]($style) '
 # not_found_symbol = '?'
 # sigint_symbol    = ''       # "\uf11c"
 # signal_symbol    = '󱐋'       # "\U000f140b"
-style            = 'fg:error_red bold'
+style            = 'fg:error_red'
 
 # ─── プロンプト文字 ───────────────────────────────────────────────────
 # >>> は現在設定から踏襲。成功/エラーで色変化により状態を示す
 # vim modeも設定（<<<で視覚的対称性）
 [character]
-success_symbol = '[>](fg:sumire_deep bold)[>](fg:sumire_mid bold)[>](fg:sumire_light bold)'
+success_symbol = '[>](fg:sumire_deep)[>](fg:sumire_mid)[>](fg:sumire_light)'
 # '[>>>](fg:accent_sage bold)'
-error_symbol   = '[>>>](fg:error_red bold)'
-vimcmd_symbol  = '[<<<](fg:accent_gold bold)'
+error_symbol   = '[>>>](fg:error_red)'
+vimcmd_symbol  = '[<<<](fg:accent_gold)'
 
 # ─── 言語モジュール ───────────────────────────────────────────────────
 # 推奨案C: 検出時のみ表示 + メジャー.マイナーのみ
