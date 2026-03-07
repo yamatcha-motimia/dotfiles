@@ -11,3 +11,6 @@ abbr gl 'log --graph --oneline --decorate --all'
 # ディレクトリ移動
 abbr .. 'cd ..'
 abbr ... 'cd ../..'
+
+# テキストエディタ
+abbr nv 'nvim'
