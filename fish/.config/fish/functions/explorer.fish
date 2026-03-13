@@ -1,6 +1,6 @@
 function explorer --description "Open current directory in Windows Explorer"
 	# 変数 target に対象のパスを格納
-	set target $argv[1]
+	set -l target $argv[1]
 	test -z "$target"; and set target $PWD
 
 	# 入力された引数の判定 
