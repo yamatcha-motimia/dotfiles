@@ -23,5 +23,5 @@ function fish_greeting
     echo "  $dim  Date: $day"
     echo "  $dim  Login at $time"
     echo "  ────────────────────────────────────────────"
-    echo "  $highlight>$normal fish shell is ready to swim"
+    echo "  $highlight>$normal fish shell is ready to swim!"
 end

@@ -6,7 +6,7 @@ abbr gpo 'git push origin (git branch --show-current)'
 abbr gcv 'git commit -v'
 abbr gcm --set-cursor 'git commit -m "%"'
 
-abbr gl 'log --graph --oneline --decorate --all'
+abbr gl 'git log --graph --oneline --decorate --all'
 
 # ディレクトリ移動
 abbr .. 'cd ..'
