@@ -1,26 +1,10 @@
-### all ignore ###
-/*
-/**
+# 全階層の全ファイル・ディレクトリを無視
+*
 
-### not ignore ###
-# ディレクトリ構造を辿れるように許可
-!/fish/
-!/fish/.config/
-!/fish/.config/fish/
-!/fish/.config/fish/completions/
-!/fish/.config/fish/conf.d/
-!/fish/.config/fish/functions/
+# 全階層のディレクトリのみ無視解除
+!*/
 
-!/git
-
-!/nvim/
-!/nvim/.config/
-!/nvim/.config/nvim/
-
-!/starship/
-!/starship/.config/
-
-# 特定のファイルのみを追跡対象にする
+# ホワイトリスト指定
 !/fish/.config/fish/config.fish
 !/fish/.config/fish/conf.d/*.fish
 !/fish/.config/fish/completions/*.fish
@@ -28,9 +12,13 @@
 
 !/git/.gitconfig
 
-!/nvim/.config/nvim/*.lua
+!/nvim/.config/nvim/init.lua
+# !/nvim/.config/nvim/**/*.lua
 
 !/starship/.config/starship.toml
 
-!/README.md
 !/.gitignore
+!/README.md
+
+# 非探索用のディレクトリ
+# ...

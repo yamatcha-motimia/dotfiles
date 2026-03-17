@@ -3,7 +3,7 @@ function explorer --description "Open current directory in Windows Explorer"
 	set -l target $argv[1]
 	test -z "$target"; and set target $PWD
 
-	# 入力された引数の判定 
+	# 入力された引数の判定
 	if not test -d $target
 		echo "explorer: path does not exist: $target" >&2
 		return 1
