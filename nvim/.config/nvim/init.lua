@@ -1,2 +1,1 @@
-require("motimia.core")
-require("motimia.lazy")
+require("config")
